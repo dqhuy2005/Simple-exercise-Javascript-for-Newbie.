@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    var myArr = [];
+    var anotherArr = [];
+    var total = 0;
+    let text = prompt("Nhập từ 0 - 9.");
+
+    for (let i = 0; i <= 9; i++) {
+      // Tạo phần tử 1 - 100
+      let randomNumber = Math.floor(Math.random() * 100);
+      myArr.push(randomNumber);
+
+      if (i === 9) console.log("Mảng trước khi xóa:" + myArr);
+      // Tính tổng
+      if (randomNumber % 2 === 0) {
+        total += randomNumber;
+      } else {
+        anotherArr.push(randomNumber);
+      }
+    }
+
+    // Xóa tại vị trí text trong mảng
+    if (text <= myArr.length) {
+      myArr.splice(text, 1);
+      console.log("Mảng sau khi xóa:" + myArr);
+    }
+
+    // Thêm vào cuối mảng
+    var text2 = parseInt(prompt("Another number 0 - 9."));
+    myArr.push(text2);
+
+    // In kết quả
+    console.log("Mảng sau khi thêm mới:" + myArr);
+    console.log("Mảng số lẻ: " + anotherArr);
+    console.log("Tổng số chẵn = " + total);
+  </script>
+</html>
