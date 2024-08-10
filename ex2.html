@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=/, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .container {
+      width: 20%;
+      height: 200px;
+      border: 1px solid black;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 10px;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    #expiry {
+      width: 80%;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <label for="">Ngày SX</label>
+      <input type="date" name="" id="time" class="time" />
+      <label for="">Hạn sử dụng:</label>
+      <input type="number" id="expiry" max="12" min="1" /> Tháng <br />
+      <label for="">Ngày hết hạn:</label>
+      <span id="dateEnd"></span> <br />
+      <label for="">Thời gian còn lại:</label>
+      <span id="timeEnd"></span>
+    </div>
+  </body>
+  <script>
+    // Input change -> Value change and do updateTimeLine
+    document.getElementById("time").addEventListener("change", updateTimeLine);
+    document.getElementById("expiry").addEventListener("input", updateTimeLine);
+    setInterval(updateTimeLine, 1000);
+
+    function updateTimeLine() {
+      var timeLine = document.getElementById("time").value;
+      var expiry = document.getElementById("expiry").value;
+
+      // Nếu thời hạn sử dụng || ô nhập thời gian thay đổi => Setup lại thời gian sử dụng
+      if (timeLine && expiry) {
+        // Tính ngày hết hạn (lấy tháng của ngày input + tháng vừa nhập)
+        let createDate = new Date(timeLine);
+        createDate.setMonth(createDate.getMonth() + parseInt(expiry));
+
+        let now = new Date().getTime();
+
+        // Middle time
+        let distance = createDate - now; // --> Milliseconds
+
+        // Tính ngày - giờ - phút - giây
+        let months = Math.floor(distance / (30 * 24 * 60 * 60 * 1000));
+        let days = Math.floor(distance / (24 * 60 * 60 * 1000));
+        let hours = Math.floor(distance / (60 * 60 * 1000));
+        let minutes = Math.floor(distance / (60 * 1000));
+        let seconds = Math.floor(distance / 1000);
+
+        //console.log("Before:" + hours);
+        //console.log("After:" + hours);
+        months %= 12;
+        
+        // Still not yet.
+        if (
+          (createDate.getFullYear() % 4 === 0 &&
+            createDate.getFullYear() % 100 !== 0) ||
+          createDate.getFullYear() % 400 === 0
+        ) {
+          //console.log(createDate.getFullYear());
+          if (createDate.getMonth() === 2) {
+            days %= 29;
+          } else {
+            days %= 28;
+          }
+        }
+        hours %= 24;
+        minutes %= 60;
+        seconds %= 60;
+
+        // Result
+        document.getElementById("dateEnd").innerHTML =
+          createDate.toLocaleDateString();
+        document.getElementById("timeEnd").innerHTML =
+          months +
+          " tháng " +
+          days +
+          " ngày " +
+          hours +
+          " giờ " +
+          minutes +
+          " phút " +
+          seconds +
+          " giây";
+      }
+      // LMAO
+    }
+  </script>
+</html>
