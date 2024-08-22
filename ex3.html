@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    var secondArr = [1, 6, 4, 2, 8];
+    for (let i = 0; i < secondArr.length; i++) {
+      //firstArr.push(i);
+
+      let max = secondArr[0];
+
+      if (max < secondArr[i]) {
+        max = secondArr[i];
+      }
+    }
+
+    function findMaxIndex(arr) {
+      let max = arr[0];
+      for (let i = 0; i < arr.length; i++) {
+        if (max < arr[i]) {
+          max = arr[i];
+        }
+      }
+      return max;
+    }
+
+    var thirdArr = [10, 57, 43, 2, 28];
+
+    findMaxIndex(thirdArr);
+
+    console.log(findMaxIndex(thirdArr));
+  </script>
+</html>
