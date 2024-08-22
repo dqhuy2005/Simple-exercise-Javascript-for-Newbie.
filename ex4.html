@@ -1,0 +1,72 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" name="" id="id" placeholder="Mã" />
+    <input type="text" name="" id="name" placeholder="Tên" />
+    <input type="text" name="" id="price" placeholder="Giá" />
+    <input
+      type="number"
+      min="1"
+      value="1"
+      id="quantity"
+      placeholder="Số lượng"
+    />
+
+    <button onclick="add()">Add</button>
+
+    <table>
+      <thead id="thead">
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Price</td>
+          <td>Quantity</td>
+          <td>Amount</td>
+        </tr>
+      </thead>
+
+      <tbody id="tb">
+        <tr id="table-items"></tr>
+      </tbody>
+    </table>
+  </body>
+  <script>
+    var items = [];
+
+    function add() {
+      let id = document.getElementById("id").value;
+      let name = document.getElementById("name").value;
+      let price = document.getElementById("price").value;
+      let quantity = document.getElementById("quantity").value;
+      console.log(id, name, price, quantity);
+
+      let products = [id, name, price, quantity];
+      items.push(products);
+      console.log(items);
+      show();
+    }
+
+    function show() {
+      let total = 0;
+      let rows = "";
+      rows = items.map((obj, index) => {
+        let amount = obj[2] * obj[3];
+        total += amount;
+        return `
+        <tr>
+            <td>${obj[0]}</td>
+            <td>${obj[1]}</td>
+            <td>${obj[2]}</td>
+            <td>${obj[3]}</td>
+            <td>${amount.toLocaleString("de-DE")}</td>
+        </tr>
+    `;
+      });
+      document.getElementById("tb").innerHTML = rows;
+    }
+  </script>
+</html>
